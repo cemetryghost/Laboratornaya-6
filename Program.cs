@@ -1,90 +1,117 @@
-﻿namespace ConsoleApp5
+namespace ConsoleApp6
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Animal dog = new Dog("Чаппи", "будке", "Мухтар", 5);
-            Animal cat = new Cat("Вискас", "доме", "Мгла", "Белый");
-            Animal horse = new Horse("Сено", "загоне", "Пегас", "Новые подковы");
-            Vet vet = new();
+            Dog dog = new Dog("кости", "дворе", "овчарка");
+            Cat cat = new Cat("рыба", "квартире", true);
+            Horse horse = new Horse("сено", "стойле", 20);
 
+            Veterinarian vet = new Veterinarian();
             vet.treatAnimal(dog);
             vet.treatAnimal(cat);
             vet.treatAnimal(horse);
 
             dog.makeNoise();
-            dog.eat();
-            dog.sleep();
-
             cat.makeNoise();
-            cat.eat();
-            cat.sleep();
-
             horse.makeNoise();
+
+            dog.eat();
+            cat.eat();
             horse.eat();
-            horse.sleep();
         }
     }
-    class Animal
+    public class Animal
     {
-        public string food, location;
-
+        public string location { get; set; }
+        public string food { get; set; }
         public Animal(string food, string location)
         {
             this.food = food;
             this.location = location;
         }
 
-        public virtual void makeNoise() { }
-        public virtual void eat() { }
-        public virtual void sleep() { }
-    }
-    class Dog : Animal
-    {
-        public string name;
-        public int age;
-        public Dog(string food, string location, string name, int age) : base(food, location)
+        public virtual void makeNoise()
         {
-            this.name = name;
-            this.age = age;
+
         }
-      
-        public override void makeNoise() => Console.WriteLine("Собака издает звук: Гааав!");
-        public override void eat() => Console.WriteLine("Собака ест: " + food);
-        public override void sleep() => Console.WriteLine("Собака - спит");
-    }
-    class Cat : Animal
-    {
-        public string name;
-        public string color;
-        public Cat(string food, string location, string name, string color) : base(food, location) 
-        { 
-            this.name = name;
-            this.color = color; 
-        } 
-        public override void makeNoise() => Console.WriteLine("Кот издает звук: Муyyр!");
-        public override void eat() => Console.WriteLine("Кот ест " + food);
-        public override void sleep() => Console.WriteLine("Кот - спит");
-    }
-    class Horse : Animal
-    {
-        public string name;
-        public string horseshoe;
-        public Horse(string food, string location, string name, string horseshoe) : base(food, location)
+
+        public virtual void eat()
         {
-            this.name = name;
-            this.horseshoe = horseshoe;
         }
-        public override void makeNoise() => Console.WriteLine("Лошадь издает звук: Иго-го-го!");
-        public override void eat() => Console.WriteLine("Лошадь ест " + food);
-        public override void sleep() => Console.WriteLine("Лошадь - спит");
+
+        public void sleep()
+        {
+
+        }
     }
-    class Vet
+
+    public class Dog : Animal
+    {
+        private string breed;
+
+        public Dog(string food, string location, string breed) : base(food, location)
+        {
+            this.breed = breed;
+        }
+
+        public override void makeNoise()
+        {
+            Console.WriteLine("Собака лает");
+        }
+
+        public override void eat()
+        {
+            Console.WriteLine("Собака кушает " + food);
+        }
+    }
+
+    public class Cat : Animal
+    {
+        private bool hasClaws;
+
+        public Cat(string food, string location, bool hasClaws) : base(food, location)
+        {
+            this.hasClaws = hasClaws;
+        }
+
+        public override void makeNoise()
+        {
+            Console.WriteLine("Кошка мурлычет");
+        }
+
+        public override void eat()
+        {
+            Console.WriteLine("Кошка кушает " + food);
+        }
+    }
+
+    public class Horse : Animal
+    {
+        private int speed;
+
+        public Horse(string food, string location, int speed) : base(food, location)
+        {
+            this.speed = speed;
+        }
+
+        public override void makeNoise()
+        {
+            Console.WriteLine("Лошадь кричит как-то иго-го-го");
+        }
+
+        public override void eat()
+        {
+            Console.WriteLine("Лошадь кушает " + food);
+        }
+    }
+
+    public class Veterinarian
     {
         public void treatAnimal(Animal animal)
         {
-            Console.WriteLine($"Животное ест: {animal.food}, а находится в {animal.location}");
+            Console.WriteLine($"Животное ест {animal.food} и находится в {animal.location}");
         }
     }
 }
